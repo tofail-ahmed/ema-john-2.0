@@ -1,10 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Moon, ShoppingCart, Sun } from "lucide-react";
+import { Moon, MoonIcon, ShoppingCart, Sun, SunIcon } from "lucide-react";
 import EmaJohn from "../../assets/ema-jogn-logo.png";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
+import { toggleDarkMode } from "../../redux/features/themeSlice";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const Header = () => {
+  const darkMode = useAppSelector((store) => store.theme.darkMode);
+  const dispatch = useAppDispatch();
+  const darkModeHnadler = () => {
+    dispatch(toggleDarkMode());
+  };
+
   return (
     <header className="bg-[#1c2b35] text-white">
       <nav className="container flex items-center justify-between space-x-10 py-4 ">
@@ -50,7 +58,10 @@ const Header = () => {
                   height="24"
                   alt=""
                 /> */}
-              <Moon size={24} />
+              <div onClick={darkModeHnadler} size={24}>
+                {darkMode ? <SunIcon /> : <MoonIcon />}
+              </div>
+
               {/* <Sun/> */}
             </a>
           </li>
