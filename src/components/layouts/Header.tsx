@@ -1,5 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Moon, MoonIcon, ShoppingCart, Sun, SunIcon } from "lucide-react";
+import {
+  CarTaxiFront,
+  Moon,
+  MoonIcon,
+  ShoppingCart,
+  Sun,
+  SunIcon,
+} from "lucide-react";
 import EmaJohn from "../../assets/ema-jogn-logo.png";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
@@ -12,6 +19,7 @@ const Header = () => {
   const darkModeHnadler = () => {
     dispatch(toggleDarkMode());
   };
+  const products = useAppSelector((state) => state.cart.products);
 
   return (
     <header className="bg-[#1c2b35] text-white">
@@ -37,14 +45,17 @@ const Header = () => {
               About
             </a>
           </li>
-          <li>
+          <li className="relative">
             <Link
-              className=" rounded-lg backdrop-blur-[2px] p-1 inline-block"
+              className=" rounded-lg backdrop-blur-[2px] p-1 inline-block relative"
               to={"/cart"}
             >
               {/* <img src={ring} width="24" height="24" alt="" /> */}
               <ShoppingCart size={24} />
             </Link>
+            <span className="rounded-full absolute top-[-10px] left-[15px] size-[25px] text-center bg-orange-500 text-white ">
+              {products.length}+
+            </span>
           </li>
 
           <li>
