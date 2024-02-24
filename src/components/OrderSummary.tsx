@@ -1,14 +1,16 @@
 import { CreditCard, Trash2 } from "lucide-react";
+import { useAppSelector } from "../redux/hook";
 
 const OrderSummary = () => {
+  const {tax,taxRate,grandTotal,totalPrice,selectedItems}=useAppSelector((store)=>store.cart)
   return (
     <div className=" lg:w-80 w-full h-full bg-primary bg-opacity-35 rounded">
       <div className="px-6 py-4 space-y-10">
         <h1 className="text-3xl font-bold text-dark">Order Summary</h1>
-        <p className="text-sm text-dark mt-2">Selected Items : $10</p>
-        <p className="text-sm text-dark mt-2">Total Price : $100</p>
-        <p className="text-sm text-dark mt-2">Tax : $100</p>
-        <h3 className="text-xl font-semibold text-dark mt-4">Grand Total</h3>
+        <p className="text-sm text-dark mt-2">Selected Items :{selectedItems}</p>
+        <p className="text-sm text-dark mt-2">Total Price : ${totalPrice}</p>
+        <p className="text-sm text-dark mt-2">Tax ({taxRate*100}) : ${tax}</p>
+        <h3 className="text-xl font-semibold text-dark mt-4">Grand Total:{grandTotal}</h3>
       </div>
       <div className="px-4 pb-6">
         {" "}
