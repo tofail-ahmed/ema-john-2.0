@@ -1,6 +1,5 @@
 import CartDetails from "../components/CartDetails";
 import OrderSummary from "../components/OrderSummary";
-import getAllProducts from "../data/products";
 import { useAppSelector } from "../redux/hook";
 
 const Cart = () => {

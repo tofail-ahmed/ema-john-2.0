@@ -23,7 +23,21 @@ const cartSlice = createSlice({
         state.products.push({ ...action.payload, quantity: 1 });
       }
     },
+    updateQuantity: (state, action) => {
+      const products = state.products.map((product) => {
+        // console.log(product)
+        if (product.id === action.payload.id) {
+          if (action.payload.type === "increment") {
+            product.quantity += 1;
+          } else if (action.payload.type === "decrement") {
+            product.quantity -= 1;
+          }
+        }
+        return product;
+      });
+      state.products = products.filter((product) => product.quantity > 0);
+    },
   },
 });
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, updateQuantity } = cartSlice.actions;
 export default cartSlice.reducer;
