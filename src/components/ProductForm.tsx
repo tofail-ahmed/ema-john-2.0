@@ -4,14 +4,14 @@ import { useCreateProductMutation } from "../redux/features/api/productApi";
 
 
 const ProductForm = ({ onClose, product }: any) => {
-  const [createProduct,{data,isLoading}] = useCreateProductMutation(); //returns array
+  const [createProduct] = useCreateProductMutation(); //returns array
 //   const [updateProduct] = useUpdateProductMutation(); //returns array
   const { register, handleSubmit, reset } = useForm<any>();
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
  
-  const onSubmit = (data) => {
+  const onSubmit = (data:any) => {
     const modifiedData = {
       ...data,
       stock: parseInt(data.stock),
