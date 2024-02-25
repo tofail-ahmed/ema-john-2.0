@@ -53,12 +53,12 @@ const findProductById = catchAsync(async (req, res) => {
 
 const getAllProducts = catchAsync(async (req, res) => {
   const result = await ProductProduct.getAllProducts(req.query);
-
+// console.log("controller",result)
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Products are retrieved successfully',
-    meta: result.meta,
+    // meta: result.meta,
     data: result.data,
   });
 });
