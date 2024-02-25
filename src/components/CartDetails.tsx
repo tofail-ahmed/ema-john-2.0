@@ -24,17 +24,17 @@ const CartDetails = ({ product }: any) => {
         <p className="text-lg font-bold">${product.price}</p>
       </div>
       <div className="flex items-center gap-3">
-        <button onClick={() => updateHandler("decrement", product._id)}>
+        <button onClick={() => updateHandler("decrement", product.id)}>
           <Minus />
         </button>
         <p>{product.quantity}</p>
-        <button onClick={() => updateHandler("increment", product._id)}>
+        <button onClick={() => updateHandler("increment", product.id)}>
           <Plus />
         </button>
       </div>
       <div>
         <button
-          onClick={(e) => {removeFromCartHandler(e, product._id);}}
+          onClick={(e) => {removeFromCartHandler(e, product.id);}}
           className="bg-red-200 text-white p-2 rounded-full w-full"
         >
           <Trash2 className="text-red-500" />

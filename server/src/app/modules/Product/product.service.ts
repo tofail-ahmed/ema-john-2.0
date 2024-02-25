@@ -17,10 +17,10 @@ const getAllProducts = async (query: Record<string, unknown>) => {
     .sort()
     // .paginate()
     .fields();
-
-  const result = await productQuery.modelQuery.exec();
+    
+  const result = await productQuery.modelQuery;
   const metaData = await productQuery.countTotal();
-  console.log("service",result)
+  
   return {
     meta: metaData,
     data: result,

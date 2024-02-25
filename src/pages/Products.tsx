@@ -6,11 +6,21 @@ import { useGetProductsQuery } from "../redux/features/api/productApi";
 
 const Products = () => {
   const [showModal,setShowModal]=useState(false)
-  const {data}=useGetProductsQuery("")
+  const {data,isLoading,isFetching}=useGetProductsQuery("")
   const onClose=()=>{
     setShowModal(false)
   }
-  // console.log(data?.data);
+  if(isLoading){
+    return <p className="text-center font-bold text-3xl">Loading...</p>
+  }
+  if(isFetching){
+    return <p className="text-center font-bold text-3xl">Fetching...</p>
+  }
+  const products=data?.data;
+  // console.log(products)
+  const reverseProducts=[...products].reverse();
+  // console.log(reverseProducts)
+ 
   return (
     <div className="container">
      <div className="flex justify-between items-center">
@@ -18,7 +28,7 @@ const Products = () => {
      <button onClick={()=>setShowModal(true)} className="p-2 text-xl font-bold rounded-md bg-yellow-700">Add Product</button>
      </div>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10">
-        {data?.data.map((product:any) => (
+        {reverseProducts.map((product:any) => (
           <ProductCard key={product._id} product={product} />
         ))}
       </div>
