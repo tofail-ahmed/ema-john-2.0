@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from "react";
 import ProductCard from "../components/ProductCard";
 import ProductModal from "../components/ProductModal";
 import { useGetProductsQuery } from "../redux/features/api/productApi";
@@ -6,6 +7,9 @@ import { useGetProductsQuery } from "../redux/features/api/productApi";
 const Products = () => {
   const [showModal,setShowModal]=useState(false)
   const {data}=useGetProductsQuery("")
+  const onClose=()=>{
+    setShowModal(false)
+  }
   // console.log(data?.data);
   return (
     <div className="container">
@@ -18,7 +22,7 @@ const Products = () => {
           <ProductCard key={product._id} product={product} />
         ))}
       </div>
-      {showModal&& <ProductModal></ProductModal>}
+      {showModal&& <ProductModal onClose={onClose}></ProductModal>}
     </div>
   );
 };

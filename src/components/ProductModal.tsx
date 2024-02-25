@@ -3,8 +3,8 @@ import ProductForm from "./ProductForm";
 
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const ProductModal = ({ onClose, productId, isUpdating }: any) => {
-  console.log(productId);
+const ProductModal = ({onClose}) => {
+//   console.log(productId);
 //   const { data, isLoading } = useGetSingleProductQuery(productId);
 //   if (isLoading) {
 //     return <div>Loading...</div>;
@@ -22,7 +22,7 @@ const ProductModal = ({ onClose, productId, isUpdating }: any) => {
           <ProductForm
             onClose={onClose}
             // product={data?.data}
-            isUpdating={isUpdating}
+            // isUpdating={isUpdating}
           />
         </div>
       </div>

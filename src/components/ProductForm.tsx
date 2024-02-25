@@ -1,29 +1,36 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm } from "react-hook-form";
+import { useCreateProductMutation } from "../redux/features/api/productApi";
 
 
-const ProductForm = ({ onClose, product, isUpdating }: any) => {
-  const [createProduct] = useCreateProductMutation(); //returns array
-  const [updateProduct] = useUpdateProductMutation(); //returns array
+const ProductForm = ({ onClose, product }: any) => {
+  const [createProduct,{data,isLoading}] = useCreateProductMutation(); //returns array
+//   const [updateProduct] = useUpdateProductMutation(); //returns array
   const { register, handleSubmit, reset } = useForm<any>();
-
-  const onSubmit = (data: any) => {
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+ 
+  const onSubmit = (data) => {
     const modifiedData = {
       ...data,
-      price: parseInt(data.price),
       stock: parseInt(data.stock),
+      price: parseInt(data.price),
       ratings: parseInt(data.ratings),
       ratingsCount: parseInt(data.ratingsCount),
       shipping: parseInt(data.shipping),
+      quantity: parseInt(data.quantity),
     };
-    if (isUpdating) {
-      updateProduct({
-        id: product._id,
-        body: modifiedData,
-      });
-    } else {
-      createProduct(modifiedData);
-    }
+    // console.log(modifiedData)
+    createProduct(modifiedData)
+//     if (isUpdating) {
+//       updateProduct({
+//         id: product._id,
+//         body: modifiedData,
+//       });
+//     } else {
+//       createProduct(modifiedData);
+//     }
     reset();
     onClose();
   };
