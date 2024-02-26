@@ -1,17 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import {  ShoppingCart, TrashIcon } from "lucide-react";
+import {  Edit3Icon, ShoppingCart, TrashIcon } from "lucide-react";
 import Rating from "./Ratings";
 import { useState } from "react";
 import Modal from "./Modal";
 import { useAppDispatch } from "../redux/hook";
 import { addToCart } from "../redux/features/cartSlice";
 import { useDeleteProductMutation } from "../redux/features/api/productApi";
+import ProductModal from "./ProductModal";
 
 const ProductCard = ({ product }: any) => {
   const [deleteProduct]=useDeleteProductMutation()
   const dispatch=useAppDispatch()
   const [showModal, setShowModal] = useState(false);
+  const [showUpdateModal,setShowUpdateModal]=useState(false)
+  const updateModalClose=()=>{
+    setShowUpdateModal(false)
+  }
   const [selectedProduct, setSelectedProduct] = useState(null);
   const handleShowModal = (product: any) => {
     setSelectedProduct(product);
@@ -23,7 +28,7 @@ const ProductCard = ({ product }: any) => {
   };
   const handleAddToCart=(product)=>{
     dispatch(addToCart(product))
-    console.log( dispatch(addToCart(product)))
+    // console.log( dispatch(addToCart(product)))
   }
   // console.log(deleteProduct)
   return (
@@ -58,6 +63,17 @@ const ProductCard = ({ product }: any) => {
           <button
             onClick={(e) => {
               e.stopPropagation();
+              setShowUpdateModal(true)
+            
+            }}
+            className="bg-green-400 text-white px-4 py-2 mt-2 rounded-md w-full"
+          >
+            Update
+            <Edit3Icon className="inline ml-2" />
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
               deleteProduct(product._id)
             }}
             className="bg-red-400 text-white px-4 py-2 mt-2 rounded-md w-full"
@@ -67,6 +83,9 @@ const ProductCard = ({ product }: any) => {
           </button>
         </div>
       </div>
+      {
+        showUpdateModal&& <ProductModal onClose={updateModalClose}/>
+      }
     </div>
   );
 };
