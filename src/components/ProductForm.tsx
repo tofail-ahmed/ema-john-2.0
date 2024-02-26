@@ -1,17 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm } from "react-hook-form";
-import { useCreateProductMutation } from "../redux/features/api/productApi";
+import { useCreateProductMutation, useUpdateProductMutation } from "../redux/features/api/productApi";
 
 
-const ProductForm = ({ onClose, product }: any) => {
+const ProductForm = ({ onClose, product ,isUpdating}: any) => {
   const [createProduct] = useCreateProductMutation(); //returns array
-//   const [updateProduct] = useUpdateProductMutation(); //returns array
+  const [updateProduct] = useUpdateProductMutation(); //returns array
   const { register, handleSubmit, reset } = useForm<any>();
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
+  
  
-  const onSubmit = (data:any) => {
+  const onSubmit = (data: any) => {
     const modifiedData = {
       ...data,
       stock: parseInt(data.stock),
@@ -21,19 +19,19 @@ const ProductForm = ({ onClose, product }: any) => {
       shipping: parseInt(data.shipping),
       quantity: parseInt(data.quantity),
     };
-    // console.log(modifiedData)
-    createProduct(modifiedData)
-//     if (isUpdating) {
-//       updateProduct({
-//         id: product._id,
-//         body: modifiedData,
-//       });
-//     } else {
-//       createProduct(modifiedData);
-//     }
+  
+    if (isUpdating) {
+      updateProduct({
+        id: product._id,
+        body: modifiedData,
+      });
+    } else {
+      createProduct(modifiedData);
+    }
     reset();
     onClose();
   };
+  
 
   return (
     <>

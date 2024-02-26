@@ -14,6 +14,7 @@ const ProductCard = ({ product }: any) => {
   const dispatch=useAppDispatch()
   const [showModal, setShowModal] = useState(false);
   const [showUpdateModal,setShowUpdateModal]=useState(false)
+  const [productId,setProductId]=useState(null)
   const updateModalClose=()=>{
     setShowUpdateModal(false)
   }
@@ -64,6 +65,7 @@ const ProductCard = ({ product }: any) => {
             onClick={(e) => {
               e.stopPropagation();
               setShowUpdateModal(true)
+              setProductId(product._id)
             
             }}
             className="bg-green-400 text-white px-4 py-2 mt-2 rounded-md w-full"
@@ -84,7 +86,7 @@ const ProductCard = ({ product }: any) => {
         </div>
       </div>
       {
-        showUpdateModal&& <ProductModal onClose={updateModalClose}/>
+        showUpdateModal&& <ProductModal onClose={updateModalClose} productId={productId} isUpdating={true}/>
       }
     </div>
   );
